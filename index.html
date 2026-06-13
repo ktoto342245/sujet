@@ -1,299 +1,500 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Разлом «Черной Смерти»</title>
+    <title>Система заданий</title>
     <style>
+        :root {
+            --bg-main: #121212;
+            --bg-card: #1e1e1e;
+            --bg-item: #2c2c2c;
+            --accent-mining: #f39c12;
+            --accent-combat: #e74c3c;
+            --accent-magic: #9b59b6;
+            --text-main: #ecf0f1;
+            --text-muted: #95a5a6;
+            --reward: #2ecc71;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
             padding: 20px;
-            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
         }
-        article {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+
         h1 {
-            color: #2c3e50;
             text-align: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #fff;
+            letter-spacing: 1px;
         }
-        h2 {
-            color: #8e44ad;
-            margin-top: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            overflow: hidden; /* Блокируем скролл всей страницы, чтобы скроллились только колонки */
         }
-        h3 {
-            color: #2980b9;
-            margin-top: 25px;
+
+        .column {
+            flex: 1;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            overflow: hidden;
         }
-        p {
-            margin-bottom: 10px;
-        }
-        strong {
-            color: #c0392b;
-        }
-        em {
-            color: #7f8c8d;
-        }
-        blockquote {
-            background-color: #f1f2f6;
-            border-left: 4px solid #7f8c8d;
-            margin: 15px 0;
-            padding: 10px 15px;
-            font-style: italic;
-        }
-        .action {
+
+        .column h2 {
             text-align: center;
+            margin: 0;
+            padding: 15px;
+            background-color: rgba(255,255,255,0.03);
+            border-bottom: 3px solid;
+        }
+
+        .col-mining h2 { border-color: var(--accent-mining); color: var(--accent-mining); }
+        .col-combat h2 { border-color: var(--accent-combat); color: var(--accent-combat); }
+        .col-magic h2 { border-color: var(--accent-magic); color: var(--accent-magic); }
+
+        .quest-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Настройка внешнего вида скроллбара */
+        .quest-list::-webkit-scrollbar { width: 8px; }
+        .quest-list::-webkit-scrollbar-track { background: var(--bg-card); }
+        .quest-list::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        .quest-list::-webkit-scrollbar-thumb:hover { background: #666; }
+
+        .quest-item {
+            background-color: var(--bg-item);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #555;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .quest-item:hover {
+            transform: translateX(4px);
+            background-color: #363636;
+        }
+
+        .col-mining .quest-item { border-left-color: var(--accent-mining); }
+        .col-combat .quest-item { border-left-color: var(--accent-combat); }
+        .col-magic .quest-item { border-left-color: var(--accent-magic); }
+
+        .quest-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .quest-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .quest-reward {
+            color: var(--reward);
             font-weight: bold;
-            color: #e74c3c;
-            margin: 30px 0;
-            font-size: 1.2em;
-            letter-spacing: 2px;
+        }
+
+        .quest-id {
+            color: var(--text-muted);
+            font-size: 12px;
         }
     </style>
 </head>
-
 <body>
-    <article>
-        <h1>Разлом «Черной Смерти»</h1>
 
-        <h2>КВЕСТ-ЛИНИЯ: КАК ДЖАСТ УЗНАЁТ О РАЗЛОМЕ</h2>
-
-        <section>
-            <h3>Место действия: Деревня Блаттен, таверна «Тихий омут»</h3>
-            <p><em>Джаст заходит в таверну. За стойкой — трактирщик Освальд, протирающий кружки.</em></p>
-
-            <p><strong>Джаст:</strong> «Освальд, мне нужна информация. Эрвин сказал, что ты знаешь о разломах больше, чем остальные».</p>
-            <p><strong>Освальд:</strong> <em>(ставит кружку)</em> «Знаю. И жалею об этом. Садись, Хранитель. Есть одна история… но она не для слабонервных».</p>
-
-            <p><em>Джаст садится за столик. Освальд подходит, садится напротив, понижая голос.</em></p>
-
-            <p><strong>Освальд:</strong> «Дня три назад в деревню пришёл торговец из восточных земель. Звали его… как же… Мартин. Он был не в себе. Глаза красные, руки трясутся. Рассказывал, что его обоз забрёл в туман, а когда туман рассеялся — они оказались в мёртвом городе».</p>
-            <p><strong>Джаст:</strong> «В каком городе?»</p>
-            <p><strong>Освальд:</strong> <em>(пожимает плечами)</em> «Он не знал. Сказал только, что дома там заколочены крест-накрест, на дверях — странные знаки, а воздух… сладкий. Как будто кто-то разлил духи над гнилью».</p>
-
-            <p><em>Освальд оглядывается.</em></p>
-
-            <p><strong>Освальд:</strong> «Мартин говорил, что видел там фигуры. Людей в масках с клювами. Они не двигались. Просто стояли и смотрели. А потом из-под земли полезли крысы. Тысячи крыс. Он побежал. И единственный выжил».</p>
-            <p><strong>Джаст:</strong> «Где он сейчас?»</p>
-            <p><strong>Освальд:</strong> <em>(вздыхает)</em> «В лазарете у Элизы. Слепой. Всё повторяет: "Маска… заберите маску…" Элиза говорит, что он умирает. Никакие травы не помогают. Болезнь пожирает его изнутри».</p>
-        </section>
-
-        <section>
-            <h3>Место действия: Лазарет травницы Элизы</h3>
-            <p><em>Джаст заходит. Внутри пахнет сушёными травами и… чем-то приторным. Мартин лежит на койке, укрытый рваным одеялом. Его лицо бледное, под глазами — чёрные круги.</em></p>
-
-            <p><strong>Элиза:</strong> <em>(наклонившись к Джасту)</em> «Он уже не говорит. Только дышит. Я делаю всё, что могу, но… это не простуда, Хранитель. Это что-то иное, можете подойти».</p>
-            <p><strong>Джаст:</strong> <em>(после того как он подошел)</em> «Мартин. Ты слышишь меня? Где находится этот город? Как мне туда попасть?»</p>
-
-            <p><em>Мартин открывает глаза. Они мутные, почти белые. Он хватает Джаста за руку с неожиданной силой.</em></p>
-
-            <p><strong>Мартин:</strong> «Не ходи туда… Он ждёт. Он всегда ждёт… Крысиный король…»</p>
-
-            <p><em>Мартин закашливается. Изо рта течёт чёрная жидкость.</em></p>
-
-            <p><strong>Элиза:</strong> <em>(оттаскивает Джаста)</em> «Отойди! Это заразно!»</p>
-
-            <p><em>Мартин затихает. Глаза закрываются. Грудь перестаёт подниматься.</em></p>
-
-            <p><strong>Джаст:</strong> «Он умер?»</p>
-            <p><strong>Элиза:</strong> <em>(крестится)</em> «Да упокоит Господь его душу. Хранитель… будь осторожен. Этот разлом — не как другие».</p>
-        </section>
-
-        <section>
-            <h3>Место действия: Хижина Эрвина</h3>
-            <p><em>Джаст возвращается к Эрвину. Старик сидит у камина, перебирая какие-то свитки.</em></p>
-
-            <p><strong>Эрвин:</strong> <em>(не оборачиваясь)</em> «Ты был у Освальда. Слышал о Мартине?»</p>
-            <p><strong>Джаст:</strong> «Он умер. У меня на глазах».</p>
-            <p><strong>Эрвин:</strong> <em>(кивает)</em> «Я знал, что это случится. Чума, Джаст. Этот разлом — воплощение чумы».</p>
-            <p><strong>Джаст:</strong> «Что мне делать?»</p>
-            <p><strong>Эрвин:</strong> <em>(поднимает свиток)</em> «Вот карта. Мартин говорил правду — город существует».</p>
-
-            <p><em>Эрвин протягивает Джасту свёрток.</em></p>
-
-            <p><strong>Эрвин:</strong> «Возьми это. Чеснок, серебряный крест и мешочек с ладаном. Это не спасёт тебя, но даст время. И помни: в том разломе не будет живых. Будут только тени. Не доверяй им».</p>
-            <p><strong>Джаст:</strong> «А как закрыть его?»</p>
-            <p><strong>Эрвин:</strong> «В центре города, говорят, есть маска. Та, что принадлежала главному лекарю. Она держит этот кошмар. Если заберёшь её — разлом закроется».</p>
-            <p><strong>Джаст:</strong> «А если не заберу?»</p>
-            <p><strong>Эрвин:</strong> «Тогда ты останешься там. Навсегда. Как и все, кто входил до тебя».</p>
-        </section>
-
-        <hr>
-
-        <h2>ПОЛНЫЕ ДИАЛОГИ С ТЕНЯМИ ГОРОЖАН</h2>
-
-        <section>
-            <h3>Встреча 1: У церкви</h3>
-            <p><em>Место: Ступени заброшенной церкви. На них сидит фигура в лохмотьях.</em></p>
-
-            <p><strong>Тень:</strong> <em>(не поднимая головы)</em> «Ты новенький? Давно у нас не было гостей».</p>
-            <p><strong>Джаст:</strong> «Я ищу разлом. И того, кто его создал».</p>
-            <p><strong>Тень:</strong> <em>(поднимает голову — под капюшоном пустота, только два красных огонька вместо глаз)</em> «Создал? Никто не создавал. Чума пришла сама. А Мортифер просто… стал её голосом».</p>
-            <p><strong>Джаст:</strong> «Кто такой Мортифер? Расскажи мне про него».</p>
-            <p><strong>Тень:</strong> <em>(качает головой)</em> «Был он лекарем. Хорошим. Носил маску с клювом, чтоб не заразиться и лечил нас, когда другие сбегали. Мы верили, что он спасёт. А потом…»</p>
-            
-            <p><em>Тень замолкает.</em></p>
-
-            <p><strong>Джаст:</strong> «Что потом?»</p>
-            <p><strong>Тень:</strong> <em>(голос становится тише)</em> «Потом его семья умерла. Жена, дети… всех скосила чума за одну ночь. Он перестал лечить. Перестал говорить. Надевал маску и уходил в город на рассвете. А возвращался… другим».</p>
-            <p><strong>Джаст:</strong> «Куда он уходил?»</p>
-            <p><strong>Тень:</strong> <em>(встаёт, начинает таять)</em> «Туда, где чума сильнее всего. Он искал её корень. И нашёл. Или чума нашла его…»</p>
-
-            <p><em>Тень рассыпается в прах.</em></p>
-
-            <p><strong>Джаст:</strong> <em>(после осмотра)</em> «И куда мне дальше идти?»</p>
-        </section>
-
-        <section>
-            <h3>Встреча 2: У колодца</h3>
-            <p><em>Место: Центральная площадь, старый колодец. Рядом стоит женщина с ведром. Но ведро пустое.</em></p>
-
-            <p><strong>Тень женщины:</strong> <em>(не оборачивается)</em> «Ты пришёл закрыть? Поздно. Все уже закрыто. Дома, ставни, гробы… Всё закрыто, кроме рта. Рот всегда открыт. Чтобы дышать этой сладкой смертью».</p>
-            <p><strong>Джаст:</strong> «Кто здесь главный?»</p>
-            <p><strong>Тень женщины:</strong> <em>(поворачивается — её лицо скрыто маской)</em> «Главный? Тот, кто не умер. Тот, кто стал чумой. Мортифер. Он теперь не человек. Он — стая. Тысячи голосов в одном теле».</p>
-            <p><strong>Джаст:</strong> «Где мне его найти?»</p>
-            <p><strong>Тень женщины:</strong> <em>(смеётся)</em> «Он сам тебя найдёт. Ты уже вдохнул его воздух. Он уже внутри тебя. Слышишь? Шёпот? Это он».</p>
-
-            <p><em>Тень женщины бросает ведро в колодец. Оттуда доносится писк тысяч крыс.</em></p>
-
-            <p><strong>Голос из колодца:</strong> «Хранитель… иди к нам… иди…»</p>
-            <p><strong>Джаст:</strong> «Нет!»</p>
-
-            <p><em>Тень исчезает. Колодец замолкает.</em></p>
-        </section>
-
-        <section>
-            <h3>Встреча 3: В переулке</h3>
-            <p><em>Место: Узкий переулок между домами. В конце стоит фигура ребёнка.</em></p>
-
-            <p><strong>Тень ребёнка:</strong> <em>(голос высокий, но взрослый)</em> «Дядя, а ты боишься темноты?»</p>
-            <p><strong>Джаст:</strong> <em>(останавливается)</em> «Нет. Я боюсь того, что может случиться с людьми, если я не закрою этот разлом».</p>
-            <p><strong>Тень ребёнка:</strong> <em>(наклоняет голову)</em> «А ты знаешь, что чувствует чума? Голод. Она всегда голодна. Как крысы. Они жрут всё. Дома, людей, даже камни. Потому что им никогда не хватает».</p>
-            <p><strong>Джаст:</strong> «Ты был человеком?»</p>
-            <p><strong>Тень ребёнка:</strong> <em>(подходит ближе — его маска в крови)</em> «Был. Но теперь я — голос. Один из многих. Мортифер обещал, что мы никогда не умрём. Никогда не будем голодать. Он сдержал слово...»</p>
-            <p><strong>Джаст:</strong> «Но вы не живёте».</p>
-            <p><strong>Тень ребёнка:</strong> <em>(замирает)</em> «Жить — это… что это? Я не помню. Помню только мамин голос. Она звала меня, когда я болел. А потом перестала звать. Потому что заболела сама. Возьми, это тебе пригодится».</p>
-
-            <p><em>Тень тает. (Дает 134 часть дневника)</em></p>
-        </section>
-
-        <section>
-            <h3>Встреча 4: У лавки травника</h3>
-            <p><em>Место: Разрушенная лавка. Над дверью — вывеска с засохшей травой.</em></p>
-
-            <p><strong>Тень травника:</strong> <em>(сидит на пороге, перебирает сухие листья)</em> «Травы не помогают, знаешь. Я пробовал всё. Полынь, зверобой, даже корень мандрагоры. Чума смеётся. Она не лечится травами. Она лечится… маской».</p>
-            <p><strong>Джаст:</strong> «Что ты знаешь о маске?»</p>
-            <p><strong>Тень травника:</strong> <em>(поднимает голову)</em> «Мортифер сделал её сам. Кожа, металл, травы внутри. Он думал, что маска защитит. Она и защитила. Но не от чумы. От… совести. Он перестал видеть лица умирающих. Видел только клювы».</p>
-            <p><strong>Джаст:</strong> «Где маска сейчас?»</p>
-            <p><strong>Тень травника:</strong> <em>(усмехается)</em> «На нём. Всегда на нём. Он не снимает её даже сейчас. Говорят, под ней — пустота. Или крысы. Или и то, и другое».</p>
-
-            <p><em>Тень протягивает Джасту сухой лист.</em></p>
-
-            <p><strong>Тень травника:</strong> «Возьми. Это полынь. Поможет тебе не потерять сознание. Чума любит, когда ты спишь. Она приходит во сне».</p>
-            
-            <p><em>Джаст берёт лист. Тень исчезает.</em></p>
-        </section>
-
-        <section>
-            <h3>Встреча 5: У фонтана</h3>
-            <p><em>Место: Площадь с высохшим фонтаном. Вокруг — кучи тряпья.</em></p>
-
-            <p><strong>Тень горожанина:</strong> <em>(лежит на земле, почти не двигается)</em> «Ты… живой? Дай воды…»</p>
-            <p><strong>Джаст:</strong> <em>(протягивает флягу)</em> «Держи».</p>
-
-            <p><em>Тень пытается взять флягу, но рука проходит сквозь неё.</em></p>
-
-            <p><strong>Тень горожанина:</strong> <em>(смеётся)</em> «Я забыл… мы не можем пить. Не можем есть. Только дышать. И вдыхать эту… сладость».</p>
-            <p><strong>Джаст:</strong> «Как мне победить Мортифера?»</p>
-            <p><strong>Тень горожанина:</strong> <em>(смотрит на Джаста мутными глазами)</em> «Ты не победишь его. Его нельзя убить — он уже мёртв. Но можно забрать маску. Она держит его в этом мире. Без неё… он рассыплется, как мы».</p>
-            <p><strong>Джаст:</strong> «А что будет с вами?»</p>
-            <p><strong>Тень горожанина:</strong> <em>(тихо)</em> «Мы уже рассыпались. Мы просто помним, каково это — быть живым. Забери маску. Дай нам забыть».</p>
-
-            <p><em>Тень закрывает глаза и исчезает.</em></p>
-        </section>
-
-        <hr>
-
-        <h2>ПОСЛЕДНЯЯ ВСТРЕЧА (перед битвой)</h2>
-
-        <section>
-            <p><em>Джаст выходит на центральную площадь. На ступенях ратуши стоит фигура спиной выше всех остальных. В длинном плаще, в маске с клювом. Она не двигается.</em></p>
-
-            <p><strong>Мортифер:</strong> <em>(голос спокойный, почти человеческий, стоит спиной)</em> «Ты прошёл долгий путь, Хранитель. Слышал мои голоса. Видел моих детей. Что ты понял?»</p>
-            <p><strong>Джаст:</strong> «Что ты несчастный человек, который стал чудовищем, потому что не мог вынести одиночества».</p>
-            <p><strong>Мортифер:</strong> <em>(поворачивается, во время этого диалога осматривает руку)</em> «Может быть. А может, я стал тем, кем должен был стать. Единственным, кто помнит этот город. Единственным, кто заботится о его жителях».</p>
-            <p><strong>Джаст:</strong> «Ты же убил их всех!»</p>
-            <p><strong>Мортифер:</strong> <em>(делает небольшие шаги к Джасту)</em> «Я дал им бессмертие. Они никогда не умрут. Они всегда будут со мной. В моих крысах. В моём дыхании. В этой сладкой тьме».</p>
-
-            <p><em>Из-под плаща начинают выползать крысы.</em></p>
-
-            <p><strong>Мортифер:</strong> «Ты тоже можешь стать частью этого, Хранитель. Просто сними маску страха. Дыши».</p>
-            <p><strong>Джаст:</strong> «Я не хочу дышать твоей смертью. Я закрою этот разлом».</p>
-            <p><strong>Мортифер:</strong> <em>(смеётся — в смехе слышны сотни голосов)</em> «Тогда… начнём».</p>
-        </section>
-
-        <div class="action">⚔️ БОСС-ФАЙТ ⚔️</div>
-
-        <hr>
-
-        <h2>ФИНАЛЬНЫЙ ДИАЛОГ (после победы)</h2>
-
-        <section>
-            <p><em>Мортифер падает на колени. Крысы разбегаются. Плащ сползает, обнажая скелет.</em></p>
-
-            <p><strong>Мортифер:</strong> <em>(тихо, почти беззвучно)</em> «Твои удары — пыль. Твоя магия — прах. Болезнь не лечится мечом. И даже если ты убьёшь меня… миллионы крыс уже несут её дальше».</p>
-            <p><strong>Джаст:</strong> <em>(подходит ближе)</em> «Ты выбрал бессмертие в крысах и гниющих улицах вместо того, чтобы умереть с достоинством. Я не стану тебя жалеть. Закрою разлом. И твоя чума умрёт вместе с тобой».</p>
-            <p><strong>Мортифер:</strong> «В твоём дыхании. В твоей памяти. Ты унесёшь её с собой… и когда-нибудь она проснётся».</p>
-
-            <p><em>Он снимает маску. Под ней — ничего. Пустота.</em></p>
-
-            <p><strong>Джаст:</strong> «Ты ошибаешься. Я не понесу её. Я закрою этот разлом, и всё, что было внутри, останется здесь».</p>
-            <p><strong>Мортифер:</strong> <em>(посмеиваясь)</em> «Ты прав… разлом закроется. Стены исчезнут. Но ты уже дышал этим воздухом. Ты уже видел эти лица. Слышал эти голоса. Чума не нуждается в дверях, Хранитель. Она путешествует в памяти. Однажды… в самый тёмный час… ты кашлянешь. И вспомнишь меня. И тогда… она проснётся. Не в городе. В тебе».</p>
-            <p><strong>Джаст:</strong> «Тогда я встречу её снова. И снова закрою».</p>
-            <p><strong>Мортифер:</strong> «Посмотрим… Хранитель. Посмотрим…»</p>
-
-            <p><em>Он рассыпается в прах. Последние искры его существа уносятся ветром, которого здесь быть не может. Маска падает на землю.</em></p>
-
-            <p><strong>Джаст:</strong> <em>(поднимает маску)</em> «Я запомню тебя. И твою чуму. Но не дам ей проснуться. Клянусь».</p>
-        </section>
-
-        <hr>
-
-        <h2>ДНЕВНИК МОРТИФЕРА (полный текст)</h2>
-
-        <section>
-            <p><em>Найдет он часть на ступенях церкви:</em></p>
-            <blockquote>«День 1. Сегодня началось. Люди кашляют, падают, не встают. Я ставлю маски, молюсь, промываю раны. Ничего не помогает».</blockquote>
-
-            <p><em>Найдет он часть у колодца:</em></p>
-            <blockquote>«День 23. Элис умерла. Моя жена. Я держал её за руку, когда она уходила. Она сказала: "Не бросай их". Я не брошу».</blockquote>
-
-            <p><em>Найдет он часть у Тени горожанки после исчезновения:</em></p>
-            <blockquote>«День 47. Город пустеет. Я ставлю маски на лица мёртвых. Может, это спасёт их души?»</blockquote>
-
-            <p><em>Найдет он часть после исчезновения травника:</em></p>
-            <blockquote>«День 89. Крысы больше не боятся меня. Они смотрят. Ждут. Я знаю, чего они хотят — тепла, еды, жизни. Я дам им это».</blockquote>
-
-            <p><em>Найдет он часть у тени ребенка:</em></p>
-            <blockquote>«День 134. Я больше не лекарь. Я — чума. И я приму всех, кто готов… принять меня».</blockquote>
-
-            <p><em>Найдет он часть после смерти Босса Мортифера:</em></p>
-            <blockquote>«День 167. Сегодня ко мне пришёл Хранитель. Он не первый. Но, может быть, последний. Он хочет забрать маску. Что ж… пусть попробует».</blockquote>
-        </section>
-
-    </article>
+    <h1>Доступные задания</h1>
+    <div class="container">
+        <!-- Колонка Шахтера -->
+        <div class="column col-mining">
+            <h2>⛏️ Шахта</h2>
+            <div class="quest-list" id="list-mining"></div>
+        </div>
+
+        <!-- Колонка Бойца -->
+        <div class="column col-combat">
+            <h2>⚔️ Боец</h2>
+            <div class="quest-list" id="list-combat"></div>
+        </div>
+
+        <!-- Колонка Мага -->
+        <div class="column col-magic">
+            <h2>🔮 Маг</h2>
+            <div class="quest-list" id="list-magic"></div>
+        </div>
+    </div>
+
+    <script>
+        // Функция, которая автоматически переводит Java-код в удобный формат данных
+        function parseQuests(rawData) {
+            const regex = /new QuestDef\("([^"]+)",\s*"([^"]+)",\s*"([^"]+)",\s*(\d+)\)/g;
+            const quests = [];
+            let match;
+            while ((match = regex.exec(rawData)) !== null) {
+                quests.push({
+                    title: match[1],
+                    reward: match[2],
+                    itemId: match[3],
+                    count: match[4]
+                });
+            }
+            return quests;
+        }
+
+        // Функция для вывода карточек заданий на экран
+        function renderQuests(containerId, quests) {
+            const container = document.getElementById(containerId);
+            let html = '';
+            quests.forEach((q, index) => {
+                html += `
+                    <div class="quest-item">
+                        <div class="quest-title">${index + 1}. ${q.title}</div>
+                        <div class="quest-details">
+                            <span class="quest-reward">🎁 ${q.reward}</span>
+                            <span class="quest-id">${q.itemId} x${q.count}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Данные из категории: Шахта
+        const rawMining = `
+        new QuestDef("Добудь 16 булыжника",     "+100 XP",                  "minecraft:cobblestone",       16),
+        new QuestDef("Добудь 32 булыжника",     "+100 XP",                  "minecraft:cobblestone",       32),
+        new QuestDef("Добудь 64 булыжника",     "+100 XP, Кирка камен.",    "minecraft:cobblestone",       64),
+        new QuestDef("Добудь 128 булыжника",    "+150 XP",                  "minecraft:cobblestone",       128),
+        new QuestDef("Добудь 256 булыжника",    "+200 XP",                  "minecraft:cobblestone",       256),
+        new QuestDef("Добудь 16 камня",         "+100 XP",                  "minecraft:stone",             16),
+        new QuestDef("Добудь 32 камня",         "+100 XP",                  "minecraft:stone",             32),
+        new QuestDef("Добудь 64 камня",         "+150 XP",                  "minecraft:stone",             64),
+        new QuestDef("Добудь 128 камня",        "+200 XP",                  "minecraft:stone",             128),
+        new QuestDef("Добудь 256 камня",        "+300 XP",                  "minecraft:stone",             256),
+        new QuestDef("Добудь 8 угля",           "+100 XP",                  "minecraft:coal",              8),
+        new QuestDef("Добудь 16 угля",          "+100 XP, Факелы x16",      "minecraft:coal",              16),
+        new QuestDef("Добудь 32 угля",          "+150 XP, Факелы x32",      "minecraft:coal",              32),
+        new QuestDef("Добудь 64 угля",          "+200 XP",                  "minecraft:coal",              64),
+        new QuestDef("Добудь 128 угля",         "+300 XP",                  "minecraft:coal",              128),
+        new QuestDef("Добудь 4 железа",         "+100 XP",                  "minecraft:raw_iron",          4),
+        new QuestDef("Добудь 8 железа",         "+100 XP",                  "minecraft:raw_iron",          8),
+        new QuestDef("Добудь 16 железа",        "+150 XP, Кирка жел.",      "minecraft:raw_iron",          16),
+        new QuestDef("Добудь 32 железа",        "+200 XP",                  "minecraft:raw_iron",          32),
+        new QuestDef("Добудь 64 железа",        "+300 XP",                  "minecraft:raw_iron",          64),
+        new QuestDef("Добудь 128 железа",       "+500 XP",                  "minecraft:raw_iron",          128),
+        new QuestDef("Добудь 4 меди",           "+100 XP",                  "minecraft:raw_copper",        4),
+        new QuestDef("Добудь 16 меди",          "+100 XP",                  "minecraft:raw_copper",        16),
+        new QuestDef("Добудь 32 меди",          "+150 XP",                  "minecraft:raw_copper",        32),
+        new QuestDef("Добудь 64 меди",          "+200 XP",                  "minecraft:raw_copper",        64),
+        new QuestDef("Добудь 128 меди",         "+300 XP",                  "minecraft:raw_copper",        128),
+        new QuestDef("Добудь 4 золота",         "+100 XP",                  "minecraft:raw_gold",          4),
+        new QuestDef("Добудь 8 золота",         "+150 XP",                  "minecraft:raw_gold",          8),
+        new QuestDef("Добудь 16 золота",        "+200 XP, Зол. яблоко",    "minecraft:raw_gold",          16),
+        new QuestDef("Добудь 32 золота",        "+300 XP",                  "minecraft:raw_gold",          32),
+        new QuestDef("Добудь 64 золота",        "+500 XP",                  "minecraft:raw_gold",          64),
+        new QuestDef("Добудь 2 алмаза",         "+200 XP",                  "minecraft:diamond",           2),
+        new QuestDef("Добудь 4 алмаза",         "+300 XP",                  "minecraft:diamond",           4),
+        new QuestDef("Добудь 8 алмазов",        "+500 XP, Кирка алм.",      "minecraft:diamond",           8),
+        new QuestDef("Добудь 16 алмазов",       "+800 XP",                  "minecraft:diamond",           16),
+        new QuestDef("Добудь 32 алмаза",        "+1500 XP",                 "minecraft:diamond",           32),
+        new QuestDef("Добудь 64 алмаза",        "+3000 XP",                 "minecraft:diamond",           64),
+        new QuestDef("Добудь 8 редстоуна",      "+100 XP",                  "minecraft:redstone",          8),
+        new QuestDef("Добудь 16 редстоуна",     "+100 XP",                  "minecraft:redstone",          16),
+        new QuestDef("Добудь 32 редстоуна",     "+150 XP, Компас",          "minecraft:redstone",          32),
+        new QuestDef("Добудь 64 редстоуна",     "+200 XP",                  "minecraft:redstone",          64),
+        new QuestDef("Добудь 128 редстоуна",    "+300 XP",                  "minecraft:redstone",          128),
+        new QuestDef("Добудь 4 лазурита",       "+100 XP",                  "minecraft:lapis_lazuli",      4),
+        new QuestDef("Добудь 8 лазурита",       "+100 XP",                  "minecraft:lapis_lazuli",      8),
+        new QuestDef("Добудь 16 лазурита",      "+150 XP",                  "minecraft:lapis_lazuli",      16),
+        new QuestDef("Добудь 32 лазурита",      "+200 XP",                  "minecraft:lapis_lazuli",      32),
+        new QuestDef("Добудь 64 лазурита",      "+300 XP",                  "minecraft:lapis_lazuli",      64),
+        new QuestDef("Добудь 2 изумруда",       "+200 XP",                  "minecraft:emerald",           2),
+        new QuestDef("Добудь 4 изумруда",       "+300 XP",                  "minecraft:emerald",           4),
+        new QuestDef("Добудь 8 изумрудов",      "+500 XP",                  "minecraft:emerald",           8),
+        new QuestDef("Добудь 16 изумрудов",     "+800 XP, Торговля",        "minecraft:emerald",           16),
+        new QuestDef("Добудь 32 изумруда",      "+1500 XP",                 "minecraft:emerald",           32),
+        new QuestDef("Добудь 64 изумруда",      "+3000 XP",                 "minecraft:emerald",           64),
+        new QuestDef("Добудь 32 гранита",       "+100 XP",                  "minecraft:granite",           32),
+        new QuestDef("Добудь 64 гранита",       "+150 XP",                  "minecraft:granite",           64),
+        new QuestDef("Добудь 32 диорита",       "+100 XP",                  "minecraft:diorite",           32),
+        new QuestDef("Добудь 64 диорита",       "+150 XP",                  "minecraft:diorite",           64),
+        new QuestDef("Добудь 32 андезита",      "+100 XP",                  "minecraft:andesite",          32),
+        new QuestDef("Добудь 64 андезита",      "+150 XP",                  "minecraft:andesite",          64),
+        new QuestDef("Добудь 32 туфа",          "+100 XP",                  "minecraft:tuff",              32),
+        new QuestDef("Добудь 64 туфа",          "+150 XP",                  "minecraft:tuff",              64),
+        new QuestDef("Добудь 16 обсидиана",     "+300 XP",                  "minecraft:obsidian",          16),
+        new QuestDef("Добудь 32 обсидиана",     "+500 XP",                  "minecraft:obsidian",          32),
+        new QuestDef("Добудь 64 обсидиана",     "+1000 XP",                 "minecraft:obsidian",          64),
+        new QuestDef("Добудь 16 кварца",        "+100 XP",                  "minecraft:quartz",            16),
+        new QuestDef("Добудь 32 кварца",        "+150 XP",                  "minecraft:quartz",            32),
+        new QuestDef("Добудь 64 кварца",        "+200 XP",                  "minecraft:quartz",            64),
+        new QuestDef("Добудь 128 кварца",       "+300 XP",                  "minecraft:quartz",            128),
+        new QuestDef("Добудь 256 кварца",       "+500 XP",                  "minecraft:quartz",            256),
+        new QuestDef("Добудь 64 незеракка",     "+100 XP",                  "minecraft:netherrack",        64),
+        new QuestDef("Добудь 128 незеракка",    "+150 XP",                  "minecraft:netherrack",        128),
+        new QuestDef("Добудь 256 незеракка",    "+200 XP",                  "minecraft:netherrack",        256),
+        new QuestDef("Добудь 64 базальта",      "+100 XP",                  "minecraft:basalt",            64),
+        new QuestDef("Добудь 128 базальта",     "+150 XP",                  "minecraft:basalt",            128),
+        new QuestDef("Добудь 64 чернокамня",    "+100 XP",                  "minecraft:blackstone",        64),
+        new QuestDef("Добудь 128 чернокамня",   "+150 XP",                  "minecraft:blackstone",        128),
+        new QuestDef("Добудь 1 древн. обломков","+500 XP",                  "minecraft:ancient_debris",    1),
+        new QuestDef("Добудь 4 древн. обломков","+1500 XP",                 "minecraft:ancient_debris",    4),
+        new QuestDef("Добудь 8 древн. обломков","+3000 XP",                 "minecraft:ancient_debris",    8),
+        new QuestDef("Добудь 16 древн. обломков","+6000 XP",                "minecraft:ancient_debris",    16),
+        new QuestDef("Добудь 32 древн. обломков","+15000 XP",               "minecraft:ancient_debris",    32),
+        new QuestDef("Добудь 8 кремня",         "+100 XP",                  "minecraft:flint",             8),
+        new QuestDef("Добудь 32 кремня",        "+150 XP",                  "minecraft:flint",             32),
+        new QuestDef("Добудь 64 песчаника",     "+100 XP",                  "minecraft:sandstone",         64),
+        new QuestDef("Добудь 128 песчаника",    "+200 XP",                  "minecraft:sandstone",         128),
+        new QuestDef("Добудь 64 гравия",        "+100 XP",                  "minecraft:gravel",            64),
+        new QuestDef("Добудь 128 гравия",       "+200 XP",                  "minecraft:gravel",            128),
+        new QuestDef("Добудь 256 булыжника",    "+400 XP",                  "minecraft:cobblestone",       256),
+        new QuestDef("Добудь 512 булыжника",    "+800 XP",                  "minecraft:cobblestone",       512),
+        new QuestDef("Добудь 32 глубинного сл.","+100 XP",                  "minecraft:cobbled_deepslate", 32),
+        new QuestDef("Добудь 64 глубинного сл.","+150 XP",                  "minecraft:cobbled_deepslate", 64),
+        new QuestDef("Добудь 128 глубинного сл.","+300 XP",                 "minecraft:cobbled_deepslate", 128),
+        new QuestDef("Добудь 256 глубинного сл.","+600 XP",                 "minecraft:cobbled_deepslate", 256),
+        new QuestDef("Добудь 64 эндерняка",     "+300 XP",                  "minecraft:end_stone",         64),
+        new QuestDef("Добудь 128 эндерняка",    "+600 XP",                  "minecraft:end_stone",         128),
+        new QuestDef("Добудь 256 эндерняка",    "+1000 XP",                 "minecraft:end_stone",         256),
+        new QuestDef("Добудь 32 пурпура",       "+500 XP",                  "minecraft:purpur_block",      32),
+        new QuestDef("Добудь 64 пурпура",       "+1000 XP",                 "minecraft:purpur_block",      64),
+        new QuestDef("Добудь 128 пурпура",      "+2000 XP",                 "minecraft:purpur_block",      128),
+        new QuestDef("Добудь 1000 булыжника",   "+5000 XP, Мастер",         "minecraft:cobblestone",       1000)
+        `;
+
+        // Данные из категории: Боец
+        const rawCombat = `
+        new QuestDef("Собери 8 гнилой плоти",   "+100 XP",                  "minecraft:rotten_flesh",      8),
+        new QuestDef("Собери 16 гнилой плоти",  "+150 XP",                  "minecraft:rotten_flesh",      16),
+        new QuestDef("Собери 32 гнилой плоти",  "+200 XP",                  "minecraft:rotten_flesh",      32),
+        new QuestDef("Собери 64 гнилой плоти",  "+300 XP",                  "minecraft:rotten_flesh",      64),
+        new QuestDef("Собери 128 гнилой плоти", "+500 XP",                  "minecraft:rotten_flesh",      128),
+        new QuestDef("Собери 256 гнилой плоти", "+1000 XP",                 "minecraft:rotten_flesh",      256),
+        new QuestDef("Собери 8 костей",         "+100 XP",                  "minecraft:bone",              8),
+        new QuestDef("Собери 16 костей",        "+150 XP",                  "minecraft:bone",              16),
+        new QuestDef("Собери 32 костей",        "+200 XP, Лук",             "minecraft:bone",              32),
+        new QuestDef("Собери 64 костей",        "+300 XP",                  "minecraft:bone",              64),
+        new QuestDef("Собери 128 костей",       "+500 XP",                  "minecraft:bone",              128),
+        new QuestDef("Собери 256 костей",       "+1000 XP",                 "minecraft:bone",              256),
+        new QuestDef("Собери 8 стрел",          "+100 XP",                  "minecraft:arrow",             8),
+        new QuestDef("Собери 16 стрел",         "+150 XP",                  "minecraft:arrow",             16),
+        new QuestDef("Собери 32 стрел",         "+200 XP",                  "minecraft:arrow",             32),
+        new QuestDef("Собери 64 стрел",         "+300 XP",                  "minecraft:arrow",             64),
+        new QuestDef("Собери 128 стрел",        "+500 XP",                  "minecraft:arrow",             128),
+        new QuestDef("Собери 256 стрел",        "+1000 XP",                 "minecraft:arrow",             256),
+        new QuestDef("Собери 512 стрел",        "+2000 XP",                 "minecraft:arrow",             512),
+        new QuestDef("Собери 4 нити паука",     "+100 XP",                  "minecraft:string",            4),
+        new QuestDef("Собери 8 нитей паука",    "+150 XP",                  "minecraft:string",            8),
+        new QuestDef("Собери 16 нитей",         "+200 XP",                  "minecraft:string",            16),
+        new QuestDef("Собери 32 нити",          "+300 XP",                  "minecraft:string",            32),
+        new QuestDef("Собери 64 нити",          "+500 XP",                  "minecraft:string",            64),
+        new QuestDef("Собери 128 нитей",        "+1000 XP",                 "minecraft:string",            128),
+        new QuestDef("Собери 4 глаза паука",    "+100 XP",                  "minecraft:spider_eye",        4),
+        new QuestDef("Собери 8 глаз паука",     "+150 XP",                  "minecraft:spider_eye",        8),
+        new QuestDef("Собери 16 глаз паука",    "+200 XP",                  "minecraft:spider_eye",        16),
+        new QuestDef("Собери 32 глаза паука",   "+300 XP",                  "minecraft:spider_eye",        32),
+        new QuestDef("Собери 64 глаза паука",   "+500 XP",                  "minecraft:spider_eye",        64),
+        new QuestDef("Собери 4 пороха",         "+100 XP",                  "minecraft:gunpowder",         4),
+        new QuestDef("Собери 8 пороха",         "+150 XP",                  "minecraft:gunpowder",         8),
+        new QuestDef("Собери 16 пороха",        "+200 XP, ТНТ x4",         "minecraft:gunpowder",         16),
+        new QuestDef("Собери 32 пороха",        "+300 XP",                  "minecraft:gunpowder",         32),
+        new QuestDef("Собери 64 пороха",        "+500 XP",                  "minecraft:gunpowder",         64),
+        new QuestDef("Собери 128 пороха",       "+1000 XP",                 "minecraft:gunpowder",         128),
+        new QuestDef("Собери 256 пороха",       "+2000 XP",                 "minecraft:gunpowder",         256),
+        new QuestDef("Собери 2 жемчуга Эндера", "+200 XP",                  "minecraft:ender_pearl",       2),
+        new QuestDef("Собери 4 жемчуга Эндера", "+300 XP",                  "minecraft:ender_pearl",       4),
+        new QuestDef("Собери 8 жемчугов",       "+500 XP",                  "minecraft:ender_pearl",       8),
+        new QuestDef("Собери 16 жемчугов",      "+800 XP, Око Эндера",      "minecraft:ender_pearl",       16),
+        new QuestDef("Собери 32 жемчуга",       "+1500 XP",                 "minecraft:ender_pearl",       32),
+        new QuestDef("Собери 64 жемчуга",       "+3000 XP",                 "minecraft:ender_pearl",       64),
+        new QuestDef("Собери 4 огненных стержня","+200 XP",                 "minecraft:blaze_rod",         4),
+        new QuestDef("Собери 8 огненных стержня","+300 XP",                 "minecraft:blaze_rod",         8),
+        new QuestDef("Собери 16 огненных стержня","+500 XP",                "minecraft:blaze_rod",         16),
+        new QuestDef("Собери 32 стержня",       "+1000 XP",                 "minecraft:blaze_rod",         32),
+        new QuestDef("Собери 64 стержня",       "+2000 XP",                 "minecraft:blaze_rod",         64),
+        new QuestDef("Собери 2 слезы гаста",    "+300 XP",                  "minecraft:ghast_tear",        2),
+        new QuestDef("Собери 4 слезы гаста",    "+500 XP",                  "minecraft:ghast_tear",        4),
+        new QuestDef("Собери 8 слёз гаста",     "+1000 XP",                 "minecraft:ghast_tear",        8),
+        new QuestDef("Собери 16 слёз гаста",    "+2000 XP",                 "minecraft:ghast_tear",        16),
+        new QuestDef("Собери 32 слезы гаста",   "+5000 XP",                 "minecraft:ghast_tear",        32),
+        new QuestDef("Собери 4 фантом. мембраны","+200 XP",                "minecraft:phantom_membrane",  4),
+        new QuestDef("Собери 8 фантом. мембраны","+300 XP",                "minecraft:phantom_membrane",  8),
+        new QuestDef("Собери 16 фантом. мембран","+500 XP",                "minecraft:phantom_membrane",  16),
+        new QuestDef("Собери 32 фантом. мембран","+1000 XP",               "minecraft:phantom_membrane",  32),
+        new QuestDef("Собери 64 фантом. мембран","+2000 XP",               "minecraft:phantom_membrane",  64),
+        new QuestDef("Получи тотем бессмертия", "+500 XP, Тотем",           "minecraft:totem_of_undying",  1),
+        new QuestDef("Получи 2 тотема",         "+1000 XP",                 "minecraft:totem_of_undying",  2),
+        new QuestDef("Получи 4 тотема",         "+2000 XP",                 "minecraft:totem_of_undying",  4),
+        new QuestDef("Получи 8 тотемов",        "+5000 XP",                 "minecraft:totem_of_undying",  8),
+        new QuestDef("Получи 16 тотемов",       "+10000 XP",                "minecraft:totem_of_undying",  16),
+        new QuestDef("Собери 1 череп скелета",  "+500 XP",                  "minecraft:wither_skeleton_skull", 1),
+        new QuestDef("Собери 3 черепа визера",  "+1500 XP",                 "minecraft:wither_skeleton_skull", 3),
+        new QuestDef("Собери 6 черепов визера", "+3000 XP",                 "minecraft:wither_skeleton_skull", 6),
+        new QuestDef("Собери 9 черепов визера", "+5000 XP",                 "minecraft:wither_skeleton_skull", 9),
+        new QuestDef("Собери 18 черепов визера","+10000 XP",                "minecraft:wither_skeleton_skull", 18),
+        new QuestDef("Собери звезду Незера",    "+2000 XP, Маяк",           "minecraft:nether_star",       1),
+        new QuestDef("Собери 2 звезды Незера",  "+5000 XP",                 "minecraft:nether_star",       2),
+        new QuestDef("Собери 4 звезды Незера",  "+10000 XP",                "minecraft:nether_star",       4),
+        new QuestDef("Собери 8 звезд Незера",   "+25000 XP",                "minecraft:nether_star",       8),
+        new QuestDef("Собери 8 осколков призмар.","+200 XP",                "minecraft:prismarine_shard",  8),
+        new QuestDef("Собери 16 осколков призм.","+300 XP",                 "minecraft:prismarine_shard",  16),
+        new QuestDef("Собери 32 осколка призм.","+500 XP",                  "minecraft:prismarine_shard",  32),
+        new QuestDef("Собери 64 осколка призм.","+1000 XP",                 "minecraft:prismarine_shard",  64),
+        new QuestDef("Собери 128 осколков призм.","+2000 XP",               "minecraft:prismarine_shard",  128),
+        new QuestDef("Собери 8 кристаллов призм.","+200 XP",                "minecraft:prismarine_crystals", 8),
+        new QuestDef("Собери 16 кристаллов пр.","+300 XP",                  "minecraft:prismarine_crystals", 16),
+        new QuestDef("Собери 32 кристалла пр.","+500 XP",                   "minecraft:prismarine_crystals", 32),
+        new QuestDef("Собери 64 кристалла пр.","+1000 XP",                  "minecraft:prismarine_crystals", 64),
+        new QuestDef("Собери 2 головы крипера", "+500 XP",                  "minecraft:creeper_head",      2),
+        new QuestDef("Собери 4 головы крипера", "+1000 XP",                 "minecraft:creeper_head",      4),
+        new QuestDef("Получи трезубец",         "+1000 XP",                 "minecraft:trident",           1),
+        new QuestDef("Получи 2 трезубца",       "+2500 XP",                 "minecraft:trident",           2),
+        new QuestDef("Получи 4 трезубца",       "+5000 XP",                 "minecraft:trident",           4),
+        new QuestDef("Собери 4 осколка аметиста","+200 XP",                 "minecraft:amethyst_shard",    4),
+        new QuestDef("Собери 16 осколков амет.","+500 XP",                  "minecraft:amethyst_shard",    16),
+        new QuestDef("Собери 64 осколка амет.","+1500 XP",                  "minecraft:amethyst_shard",    64),
+        new QuestDef("Собери 4 шалкер. ракушки","+500 XP",                  "minecraft:shulker_shell",     4),
+        new QuestDef("Собери 8 шалкер. ракушек","+1000 XP",                 "minecraft:shulker_shell",     8),
+        new QuestDef("Собери 16 шалкер. ракушек","+2000 XP",                "minecraft:shulker_shell",     16),
+        new QuestDef("Собери 32 шалкер. ракушки","+5000 XP",                "minecraft:shulker_shell",     32),
+        new QuestDef("Собери 64 шалкер. ракушки","+10000 XP",               "minecraft:shulker_shell",     64),
+        new QuestDef("Собери 4 магмовых сливки","+200 XP",                  "minecraft:magma_cream",       4),
+        new QuestDef("Собери 16 магмовых сливок","+500 XP",                 "minecraft:magma_cream",       16),
+        new QuestDef("Собери 64 магмовые сливки","+1500 XP",                "minecraft:magma_cream",       64),
+        new QuestDef("Собери 128 магмовых сливок","+3000 XP",               "minecraft:magma_cream",       128),
+        new QuestDef("Собери 1000 плоти",       "+10000 XP, Мастер",        "minecraft:rotten_flesh",      1000),
+        new QuestDef("Собери 1000 костей",      "+10000 XP, Некромант",     "minecraft:bone",              1000)
+        `;
+
+        // Данные из категории: Маг
+        const rawMagic = `
+        new QuestDef("Добудь 4 лазурита",       "+100 XP",                  "minecraft:lapis_lazuli",      4),
+        new QuestDef("Добудь 8 лазурита",       "+150 XP",                  "minecraft:lapis_lazuli",      8),
+        new QuestDef("Добудь 16 лазурита",      "+200 XP",                  "minecraft:lapis_lazuli",      16),
+        new QuestDef("Добудь 32 лазурита",      "+300 XP, Стол зачар.",     "minecraft:lapis_lazuli",      32),
+        new QuestDef("Добудь 64 лазурита",      "+500 XP",                  "minecraft:lapis_lazuli",      64),
+        new QuestDef("Добудь 128 лазурита",     "+1000 XP",                 "minecraft:lapis_lazuli",      128),
+        new QuestDef("Добудь 256 лазурита",     "+2000 XP",                 "minecraft:lapis_lazuli",      256),
+        new QuestDef("Получи 4 бутылки опыта",  "+100 XP",                  "minecraft:experience_bottle", 4),
+        new QuestDef("Получи 8 бутылок опыта",  "+150 XP",                  "minecraft:experience_bottle", 8),
+        new QuestDef("Получи 16 бутылок опыта", "+200 XP",                  "minecraft:experience_bottle", 16),
+        new QuestDef("Получи 32 бутылки опыта", "+300 XP",                  "minecraft:experience_bottle", 32),
+        new QuestDef("Получи 64 бутылки опыта", "+500 XP",                  "minecraft:experience_bottle", 64),
+        new QuestDef("Получи 128 бутылок опыта","+1000 XP",                 "minecraft:experience_bottle", 128),
+        new QuestDef("Получи 256 бутылок опыта","+2000 XP",                 "minecraft:experience_bottle", 256),
+        new QuestDef("Добудь 4 огненных стержня","+200 XP",                 "minecraft:blaze_rod",         4),
+        new QuestDef("Добудь 8 огненных стержня","+300 XP, Варочная ст.",   "minecraft:blaze_rod",         8),
+        new QuestDef("Добудь 16 огненных стержня","+500 XP",                "minecraft:blaze_rod",         16),
+        new QuestDef("Добудь 32 огненных стержня","+1000 XP",               "minecraft:blaze_rod",         32),
+        new QuestDef("Добудь 64 огненных стержня","+2000 XP",               "minecraft:blaze_rod",         64),
+        new QuestDef("Добудь 128 огненн. стерж.","+4000 XP",                "minecraft:blaze_rod",         128),
+        new QuestDef("Добудь 4 адского нароста","+100 XP",                  "minecraft:nether_wart",       4),
+        new QuestDef("Добудь 8 адского нароста","+150 XP",                  "minecraft:nether_wart",       8),
+        new QuestDef("Добудь 16 адского нароста","+200 XP",                 "minecraft:nether_wart",       16),
+        new QuestDef("Добудь 32 адского нароста","+300 XP, Зелья",          "minecraft:nether_wart",       32),
+        new QuestDef("Добудь 64 адского нароста","+500 XP",                 "minecraft:nether_wart",       64),
+        new QuestDef("Добудь 128 адского нароста","+1000 XP",               "minecraft:nether_wart",       128),
+        new QuestDef("Добудь 256 адского нароста","+2000 XP",               "minecraft:nether_wart",       256),
+        new QuestDef("Собери 2 глаза паука",    "+100 XP",                  "minecraft:spider_eye",        2),
+        new QuestDef("Собери 4 глаза паука",    "+150 XP",                  "minecraft:spider_eye",        4),
+        new QuestDef("Собери 8 глаз паука",     "+200 XP",                  "minecraft:spider_eye",        8),
+        new QuestDef("Собери 16 глаз паука",    "+300 XP",                  "minecraft:spider_eye",        16),
+        new QuestDef("Собери 32 глаза паука",   "+500 XP",                  "minecraft:spider_eye",        32),
+        new QuestDef("Собери 64 глаза паука",   "+1000 XP",                 "minecraft:spider_eye",        64),
+        new QuestDef("Собери 2 марин. глаза",   "+200 XP",                  "minecraft:fermented_spider_eye", 2),
+        new QuestDef("Собери 4 марин. глаза",   "+300 XP",                  "minecraft:fermented_spider_eye", 4),
+        new QuestDef("Собери 8 марин. глаз",    "+500 XP",                  "minecraft:fermented_spider_eye", 8),
+        new QuestDef("Собери 16 марин. глаз",   "+1000 XP",                 "minecraft:fermented_spider_eye", 16),
+        new QuestDef("Собери 32 марин. глаза",  "+2000 XP",                 "minecraft:fermented_spider_eye", 32),
+        new QuestDef("Собери 2 слезы гаста",    "+300 XP",                  "minecraft:ghast_tear",        2),
+        new QuestDef("Собери 4 слезы гаста",    "+500 XP, Зелье регена",    "minecraft:ghast_tear",        4),
+        new QuestDef("Собери 8 слёз гаста",     "+1000 XP",                 "minecraft:ghast_tear",        8),
+        new QuestDef("Собери 16 слёз гаста",    "+2000 XP",                 "minecraft:ghast_tear",        16),
+        new QuestDef("Собери 32 слезы гаста",   "+4000 XP",                 "minecraft:ghast_tear",        32),
+        new QuestDef("Собери 4 магмовых сливки","+200 XP",                  "minecraft:magma_cream",       4),
+        new QuestDef("Собери 8 магмовых сливок","+300 XP, Зелье огнест.",   "minecraft:magma_cream",       8),
+        new QuestDef("Собери 16 магмовых сливок","+500 XP",                 "minecraft:magma_cream",       16),
+        new QuestDef("Собери 32 магмовые сливки","+1000 XP",                "minecraft:magma_cream",       32),
+        new QuestDef("Собери 64 магмовые сливки","+2000 XP",                "minecraft:magma_cream",       64),
+        new QuestDef("Добудь 2 жемчуга Эндера", "+200 XP",                  "minecraft:ender_pearl",       2),
+        new QuestDef("Добудь 4 жемчуга Эндера", "+300 XP, Око Эндера",      "minecraft:ender_pearl",       4),
+        new QuestDef("Добудь 8 жемчугов Эндера","+500 XP",                  "minecraft:ender_pearl",       8),
+        new QuestDef("Добудь 16 жемчугов",      "+800 XP",                  "minecraft:ender_pearl",       16),
+        new QuestDef("Добудь 32 жемчуга",       "+1500 XP",                 "minecraft:ender_pearl",       32),
+        new QuestDef("Добудь 64 жемчуга",       "+3000 XP",                 "minecraft:ender_pearl",       64),
+        new QuestDef("Собери 4 светокамня",     "+150 XP",                  "minecraft:glowstone_dust",    4),
+        new QuestDef("Собери 8 светокамня",     "+200 XP",                  "minecraft:glowstone_dust",    8),
+        new QuestDef("Собери 16 светокамня",    "+300 XP",                  "minecraft:glowstone_dust",    16),
+        new QuestDef("Собери 32 светокамня",    "+500 XP, Усилен. зелья",   "minecraft:glowstone_dust",    32),
+        new QuestDef("Собери 64 светокамня",    "+1000 XP",                 "minecraft:glowstone_dust",    64),
+        new QuestDef("Собери 128 светокамня",   "+2000 XP",                 "minecraft:glowstone_dust",    128),
+        new QuestDef("Добудь 4 арбузных ломтика","+100 XP",                 "minecraft:melon_slice",       4),
+        new QuestDef("Добудь 8 арбузных ломтиков","+150 XP",                "minecraft:melon_slice",       8),
+        new QuestDef("Добудь 16 арбузных ломт.","+200 XP",                  "minecraft:melon_slice",       16),
+        new QuestDef("Добудь 32 арбузных ломт.","+300 XP",                  "minecraft:melon_slice",       32),
+        new QuestDef("Добудь 64 арбузных ломт.","+500 XP",                  "minecraft:melon_slice",       64),
+        new QuestDef("Добудь 4 сверк. арбуза",  "+200 XP",                  "minecraft:glistering_melon_slice", 4),
+        new QuestDef("Добудь 8 сверк. арбузов", "+300 XP",                  "minecraft:glistering_melon_slice", 8),
+        new QuestDef("Добудь 16 сверк. арбузов","+500 XP",                  "minecraft:glistering_melon_slice", 16),
+        new QuestDef("Добудь 32 сверк. арбуза", "+1000 XP",                 "minecraft:glistering_melon_slice", 32),
+        new QuestDef("Добудь 4 золотых морковки","+200 XP",                 "minecraft:golden_carrot",     4),
+        new QuestDef("Добудь 8 золотых морковок","+300 XP, Зелье ночн. зр.","minecraft:golden_carrot",     8),
+        new QuestDef("Добудь 16 золотых морк.","+500 XP",                   "minecraft:golden_carrot",     16),
+        new QuestDef("Добудь 32 золотых морк.","+1000 XP",                  "minecraft:golden_carrot",     32),
+        new QuestDef("Добудь 64 золотых морк.","+2000 XP",                  "minecraft:golden_carrot",     64),
+        new QuestDef("Добудь 2 кроличьей лапки","+300 XP",                  "minecraft:rabbit_foot",       2),
+        new QuestDef("Добудь 4 кроличьей лапки","+500 XP, Зелье прыжка",   "minecraft:rabbit_foot",       4),
+        new QuestDef("Добудь 8 кроличьих лапок","+1000 XP",                 "minecraft:rabbit_foot",       8),
+        new QuestDef("Добудь 16 кроличьих лап","+2000 XP",                  "minecraft:rabbit_foot",       16),
+        new QuestDef("Добудь 32 кроличьи лапки","+4000 XP",                 "minecraft:rabbit_foot",       32),
+        new QuestDef("Собери 4 пузырька дракона","+500 XP",                 "minecraft:dragon_breath",     4),
+        new QuestDef("Собери 8 пузырьков дракона","+1000 XP, Зелья туманные","minecraft:dragon_breath",     8),
+        new QuestDef("Собери 16 пузырьков др.","+2000 XP",                  "minecraft:dragon_breath",     16),
+        new QuestDef("Собери 32 пузырька др.",  "+4000 XP",                 "minecraft:dragon_breath",     32),
+        new QuestDef("Собери 64 пузырька др.",  "+8000 XP",                 "minecraft:dragon_breath",     64),
+        new QuestDef("Собери звезду Незера",     "+2000 XP, Маяк",          "minecraft:nether_star",       1),
+        new QuestDef("Собери 2 звезды Незера",   "+5000 XP",                "minecraft:nether_star",       2),
+        new QuestDef("Собери 4 звезды Незера",   "+10000 XP",               "minecraft:nether_star",       4),
+        new QuestDef("Добудь 4 рога козла",     "+300 XP",                  "minecraft:goat_horn",         4),
+        new QuestDef("Добудь 8 рогов козла",    "+600 XP",                  "minecraft:goat_horn",         8),
+        new QuestDef("Добудь 16 рогов козла",   "+1200 XP",                 "minecraft:goat_horn",         16),
+        new QuestDef("Добудь 8 эхо-осколков",   "+1000 XP",                 "minecraft:echo_shard",        8),
+        new QuestDef("Добудь 16 эхо-осколков",  "+2000 XP",                 "minecraft:echo_shard",        16),
+        new QuestDef("Добудь 32 эхо-осколка",   "+4000 XP",                 "minecraft:echo_shard",        32),
+        new QuestDef("Добудь 4 осколка аметиста","+200 XP",                 "minecraft:amethyst_shard",    4),
+        new QuestDef("Добудь 8 осколков амет.","+300 XP",                   "minecraft:amethyst_shard",    8),
+        new QuestDef("Добудь 16 осколков амет.","+500 XP",                  "minecraft:amethyst_shard",    16),
+        new QuestDef("Добудь 32 осколка амет.","+1000 XP",                  "minecraft:amethyst_shard",    32),
+        new QuestDef("Добудь 64 осколка амет.","+2000 XP",                  "minecraft:amethyst_shard",    64),
+        new QuestDef("Собери 1000 бутылок опыта","+10000 XP, Мастер Магии", "minecraft:experience_bottle", 1000)
+        `;
+
+        // Отрисовываем квесты на странице
+        renderQuests('list-mining', parseQuests(rawMining));
+        renderQuests('list-combat', parseQuests(rawCombat));
+        renderQuests('list-magic', parseQuests(rawMagic));
+    </script>
 </body>
-
 </html>
